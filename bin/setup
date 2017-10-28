@@ -6,3 +6,7 @@ for dir in logs tmp pid cache  env; do
 	mkdir -p $dir
 done
 
+JAVABIN=$(which java 2>/dev/null)
+[ ! -z "$JAVABIN" ] && {
+    setcap 'cap_net_bind_service=+ep' $(readlink -f "$JAVABIN")
+}
