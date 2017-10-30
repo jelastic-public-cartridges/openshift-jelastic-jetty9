@@ -20,7 +20,7 @@ JETTY_NODE=$(echo $JETTY_HOST | cut -f 1 -d".")
 
 [ -n "$jetty_pid" ] && echo "Server already started" && exit 0;
 
-CMD="java -jar $JAVA_OPTS start.jar -Djetty.host=$OPENSHIFT_JETTY9_APP_HOST -Djetty.port=$OPENSHIFT_JETTY9_APP_PORT -Dnode.name=$JETTY_NODE -Djava.net.preferIPv4Stack=true"
+CMD="java -jar $JAVA_OPTS start.jar -Djetty.host=$OPENSHIFT_JETTY9_APP_HOST -Djetty.port=$OPENSHIFT_JETTY9_APP_PORT -Dnode.name=$JETTY_NODE -Djava.net.preferIPv4Stack=false"
 
 nohup $CMD >> $OPENSHIFT_JETTY9_LOG_DIR/server.log 2>&1 &
 

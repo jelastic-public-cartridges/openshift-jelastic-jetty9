@@ -23,6 +23,10 @@
       <list>
         <bean id="connector" class="org.eclipse.jetty.server.ServerConnector">
           <constructor-arg ref="server"/>
+          <property name="port" value="80"/>
+        </bean>
+        <bean id="connector" class="org.eclipse.jetty.server.ServerConnector">
+          <constructor-arg ref="server"/>
           <property name="port" value="8080"/>
         </bean>
       </list>

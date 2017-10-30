@@ -39,7 +39,7 @@ Scaling:
 Endpoints:
   - Private-IP-Name:   APP_HOST
     Private-Port-Name: APP_PORT
-    Private-Port:      8080
+    Private-Port:      80
     Public-Port-Name:  APP_PROXY_PORT
   - Private-IP-Name:   AJP_HOST
     Private-Port-Name: AJP_PORT

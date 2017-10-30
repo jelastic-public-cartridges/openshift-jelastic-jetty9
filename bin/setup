@@ -6,7 +6,20 @@ for dir in logs tmp pid cache  env; do
 	mkdir -p $dir
 done
 
+echo -e "$(find /usr -name libjli.so -printf "%h\n")" > /etc/ld.so.conf.d/java.conf ; \
+ldconfig
+
 JAVABIN=$(which java 2>/dev/null)
 [ ! -z "$JAVABIN" ] && {
     setcap 'cap_net_bind_service=+ep' $(readlink -f "$JAVABIN")
 }
+
+JAVA_BINARIES=$(find /usr/java/* -name java) 
+
+for i in ${JAVA_BINARIES}
+do
+     setcap 'cap_net_bind_service=+ep' ${i}
+done
+
+iptables -t nat -D PREROUTING -p tcp -m tcp --dport 443 -j REDIRECT --to-ports 8743
+#iptables -t nat -D PREROUTING -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 8080
