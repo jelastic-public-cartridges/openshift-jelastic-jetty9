@@ -6,6 +6,8 @@ for dir in logs tmp pid cache  env; do
 	mkdir -p $dir
 done
 
+rpm -e --nodeps java6-jelastic java7-jelastic &>/dev/null
+
 echo -e "$(find /usr -name libjli.so -printf "%h\n")" > /etc/ld.so.conf.d/java.conf ; \
 ldconfig
 
