@@ -15,10 +15,12 @@ memory_total=`free -m | grep Mem | awk '{print $2}'`;
 $SED -i  "s/-Xms[0-9]*m/-Xms${XMS}m/g"  $JETTY_START_SCRIPT;
 $SED -i  "s/-Xmx[0-9]*m/-Xmx${XMX}m/g"  $JETTY_START_SCRIPT;
 
-echo -e "$(find $(realpath /usr/java/latest) -name libjli.so -printf "%h\n")" > /etc/ld.so.conf.d/java.conf ; \
-ldconfig
+if [[ "$UID" == '0' ]]; then
+    echo -e "$(find $(realpath /usr/java/latest) -name libjli.so -printf "%h\n")" > /etc/ld.so.conf.d/java.conf ; \
+    ldconfig
 
-JAVABIN=$(which java 2>/dev/null)
-[ ! -z "$JAVABIN" ] && {
-    setcap 'cap_net_bind_service=+ep' $(readlink -f "$JAVABIN")
-}
+    JAVABIN=$(which java 2>/dev/null)
+    [ ! -z "$JAVABIN" ] && {
+        setcap 'cap_net_bind_service=+ep' $(readlink -f "$JAVABIN")
+    }
+fi
